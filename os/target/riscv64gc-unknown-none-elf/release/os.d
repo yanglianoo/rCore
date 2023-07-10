@@ -1,1 +1,0 @@
-/home/timer/rCore/os/target/riscv64gc-unknown-none-elf/release/os: /home/timer/rCore/os/src/console.rs /home/timer/rCore/os/src/entry.asm /home/timer/rCore/os/src/lang_items.rs /home/timer/rCore/os/src/main.rs /home/timer/rCore/os/src/sbi.rs
