@@ -1,25 +1,23 @@
-//! SBI console driver, for text output
 
-use crate::sbi::console_putchar;
+use super::write;
 use core::fmt::{self, Write};
+
+const STDOUT: usize = 1;
 
 struct Stdout;
 
-//write特征需要实现 write_str 函数
 impl Write for Stdout {
     fn write_str(&mut self, s: &str) -> fmt::Result {
-        for c in s.chars() {
-            console_putchar(c as usize);
-        }
+        write(STDOUT, s.as_bytes());
         Ok(())
     }
 }
+
 
 pub fn print(args: fmt::Arguments) {
     Stdout.write_fmt(args).unwrap();
 }
 
-/// print string macro
 #[macro_export]
 macro_rules! print {
     ($fmt: literal $(, $($arg: tt)+)?) => {
@@ -27,10 +25,10 @@ macro_rules! print {
     }
 }
 
-/// println string macro
 #[macro_export]
 macro_rules! println {
     ($fmt: literal $(, $($arg: tt)+)?) => {
         $crate::console::print(format_args!(concat!($fmt, "\n") $(, $($arg)+)?));
     }
 }
+
